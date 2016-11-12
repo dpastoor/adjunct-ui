@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "jsx": "preserve"
+      },
+  "files": [
+    "./src/App.tsx"  
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+// suggestions from http://blog.tomduncalf.com/posts/setting-up-typescript-and-react/
