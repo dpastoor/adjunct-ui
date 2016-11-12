@@ -8,6 +8,7 @@ import * as React from 'react';
 import './App.css';
 import { observer } from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { RaisedButton } from 'material-ui';
 import MonacoEditor from 'react-monaco-editor';
 let App = class App extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ let App = class App extends React.Component {
         };
         return (<MuiThemeProvider>
         <div className="App">
-          another test
+        <RaisedButton label="Submit Code" primary={true} fullWidth={true}/>
            <MonacoEditor height="500" width="600" language="r" value={'# code here'} options={options} onChange={this.onChange.bind(this)} editorDidMount={this.editorDidMount.bind(this)}/>
         </div>
       </MuiThemeProvider>);

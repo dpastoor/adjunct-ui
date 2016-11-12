@@ -2,6 +2,7 @@ import * as React from 'react';
 import './App.css';
 import {observer} from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { RaisedButton } from 'material-ui';
 import MonacoEditor from 'react-monaco-editor';
 interface Props {}
 
@@ -35,7 +36,12 @@ class App extends React.Component<Props, {}> {
     return (
       <MuiThemeProvider>
         <div className="App">
-          another test
+        <RaisedButton 
+          label="Submit Code"
+          primary={true}
+          fullWidth={true}
+          
+        />
            <MonacoEditor
               height="500"
               width="600"
