@@ -5,11 +5,11 @@
   "devDependencies": {
     "@types/react": "^0.14.47",
     "@types/react-dom": "^0.14.18",
+    "@types/material-ui": "^0.16.38",
     "react-scripts": "0.7.0",
     "typescript": "rc"
   },
   "dependencies": {
-    "@types/material-ui": "^0.16.38",
     "material-ui": "^0.16.1",
     "mobx": "^2.6.2",
     "mobx-react": "^3.5.9",
