@@ -7,11 +7,12 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "sourceMap": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "experimentalDecorators": true
       },
   "files": [
-    "./src/App.tsx"  
-  ],
+    "./src/App.tsx"
+      ],
   "exclude": [
     "node_modules"
   ]
