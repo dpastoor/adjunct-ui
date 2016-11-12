@@ -8,15 +8,20 @@ interface Props {}
 
 @observer
 class App extends React.Component<Props, {}> {
+  public editor
   constructor(props: Props) {
     super(props)
   }
   public editorDidMount(editor) {
     console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
     this.editor = editor;
+    // editor.onDidChangeCursorSelection(function(e) {
+    //   console.log('selection: ', JSON.stringify(e.selection))
+    // })
   }
   public onChange(newValue, e) {
-    console.log('onChange', newValue, e);
+    // console.log('onChange', newValue, e);
+    console.log(this.editor.getValue())
   }
   render() {
     const options = {

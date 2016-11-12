@@ -16,9 +16,13 @@ let App = class App extends React.Component {
     editorDidMount(editor) {
         console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
         this.editor = editor;
+        // editor.onDidChangeCursorSelection(function(e) {
+        //   console.log('selection: ', JSON.stringify(e.selection))
+        // })
     }
     onChange(newValue, e) {
-        console.log('onChange', newValue, e);
+        // console.log('onChange', newValue, e);
+        console.log(this.editor.getValue());
     }
     render() {
         const options = {
