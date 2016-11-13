@@ -14,10 +14,16 @@ class App extends React.Component<Props, {}> {
   public editor
   constructor(props: Props) {
     super(props)
+    this.state = {
+      renderedHtml: "code"
+    }
   }
 
   public submitFakeCode() {
-    Api.runCode([""]).then((res) => console.log(res))
+    Api.runCode([""]).then((res) => {
+      console.log(res)
+      this.setState({renderedHtml: res.data})
+  })
   }
   public editorDidMount(editor) {
     console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
@@ -46,7 +52,7 @@ class App extends React.Component<Props, {}> {
           label="Submit Code"
           primary={true}
           fullWidth={true}
-          onClick={this.submitFakeCode}
+          onClick={this.submitFakeCode.bind(this)}
         />
            <MonacoEditor
               height="500"
@@ -56,6 +62,9 @@ class App extends React.Component<Props, {}> {
               options={options}
               onChange={this.onChange.bind(this)}
               editorDidMount={this.editorDidMount.bind(this)}
+          />
+          <div
+          dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
           />
         </div>
       </MuiThemeProvider>
