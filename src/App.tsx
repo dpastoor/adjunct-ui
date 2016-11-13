@@ -44,7 +44,7 @@ class App extends React.Component<Props, {}> {
     console.log(this.editor.getValue())
   }
   componentDidMount() {
-    this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth-100})
+    this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth-50})
   }
   render() {
     const options = {
@@ -60,24 +60,31 @@ class App extends React.Component<Props, {}> {
       <MuiThemeProvider>
         <div className="App">
       <Row debug>
-      <Column med={6} lg={6} ref="editorCol" >
-        <RaisedButton 
-          label="Submit Code"
-          primary={true}
-          fullWidth={true}
-          onClick={this.submitCode.bind(this)}
-        />
-           <MonacoEditor
-              height="500"
-              width={this.state.editorWidth}
-              language="r"
-              value={this.state.code}
-              options={options}
-              onChange={this.onChange.bind(this)}
-              editorDidMount={this.editorDidMount.bind(this)}
+      <Column fluid med={6} lg={6} ref="editorCol" 
+      >
+      <Row debug >
+          <RaisedButton 
+            label="Submit Code"
+            primary={true}
+            fullWidth={true}
+            onClick={this.submitCode.bind(this)}
           />
+      </Row>
+      <Row >
+        <Column debug med={10} lg={10} mdOffset={1} lgOffset={1}>
+            <MonacoEditor
+                height="500"
+                width={this.state.editorWidth}
+                language="r"
+                value={this.state.code}
+                options={options}
+                onChange={this.onChange.bind(this)}
+                editorDidMount={this.editorDidMount.bind(this)}
+          />
+          </Column>
+      </Row>
       </Column>
-      <Column med={6} lg={6} >
+      <Column fluid med={6} lg={6} >
           <div
           dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
           />
