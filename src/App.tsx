@@ -94,7 +94,7 @@ class App extends React.Component<Props, {}> {
         ref="editorCol"        
         >
             <MonacoEditor
-                height="500"
+                height={window.innerHeight-100}
                 width={this.state.editorWidth}
                 language="r"
                 value={this.state.code}
@@ -106,10 +106,9 @@ class App extends React.Component<Props, {}> {
       </Row>
       </Column>
       <Column fluid med={6} lg={6} >
-          <div
-          dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
-          />
-      
+        <div
+        dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
+        />
       </Column>
       </Row>
         </div>
