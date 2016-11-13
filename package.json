@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/axios": "^0.9.33",
     "@types/material-ui": "^0.16.38",
     "@types/react": "^0.14.47",
     "@types/react-dom": "^0.14.18",
@@ -54,6 +55,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "material-ui": "^0.16.1",
     "mobx": "^2.6.2",
     "mobx-react": "^3.5.9",
