@@ -44,7 +44,7 @@ class App extends React.Component<Props, {}> {
     console.log(this.editor.getValue())
   }
   componentDidMount() {
-    this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth-50})
+    this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth})
   }
   render() {
     const options = {
@@ -59,19 +59,40 @@ class App extends React.Component<Props, {}> {
     return (
       <MuiThemeProvider>
         <div className="App">
-      <Row debug>
-      <Column fluid med={6} lg={6} ref="editorCol" 
+      <Row >
+      <Column fluid med={6} lg={6}  
       >
-      <Row debug >
+      <Row >
+      <Column fluid med={3} lg={3} >
+      <div 
+        style={{padding: '3'}}
+        >
           <RaisedButton 
-            label="Submit Code"
+            label="Save Code"
             primary={true}
             fullWidth={true}
             onClick={this.submitCode.bind(this)}
           />
+      
+      </div>
+      </Column>
+      <Column fluid med={9} lg={9} >
+      <div
+        style={{padding: '3'}}
+      >
+            <RaisedButton 
+              label="Submit Code"
+              primary={true}
+              fullWidth={true}
+              onClick={this.submitCode.bind(this)}
+            />
+      </div>
+        </Column>
       </Row>
       <Row >
-        <Column debug med={10} lg={10} mdOffset={1} lgOffset={1}>
+        <Column med={10} lg={10} mdOffset={1} lgOffset={1}
+        ref="editorCol"        
+        >
             <MonacoEditor
                 height="500"
                 width={this.state.editorWidth}
