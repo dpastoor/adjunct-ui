@@ -4,6 +4,8 @@ import {observer} from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { RaisedButton } from 'material-ui';
 import MonacoEditor from 'react-monaco-editor';
+
+import {Api} from './api/api'
 interface Props {}
 
 
@@ -12,6 +14,10 @@ class App extends React.Component<Props, {}> {
   public editor
   constructor(props: Props) {
     super(props)
+  }
+
+  public submitFakeCode() {
+    Api.runCode([""]).then((res) => console.log(res))
   }
   public editorDidMount(editor) {
     console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
@@ -40,7 +46,7 @@ class App extends React.Component<Props, {}> {
           label="Submit Code"
           primary={true}
           fullWidth={true}
-          
+          onClick={this.submitFakeCode}
         />
            <MonacoEditor
               height="500"
