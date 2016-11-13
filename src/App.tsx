@@ -23,7 +23,7 @@ class App extends React.Component<Props, {}> {
     }
   }
 
-  public submitFakeCode() {
+  public submitCode() {
     Api.runCode(this.editor.getValue()).then((res) => {
       console.log(res)
       this.setState({
@@ -65,7 +65,7 @@ class App extends React.Component<Props, {}> {
           label="Submit Code"
           primary={true}
           fullWidth={true}
-          onClick={this.submitFakeCode.bind(this)}
+          onClick={this.submitCode.bind(this)}
         />
            <MonacoEditor
               height="500"
