@@ -20,7 +20,7 @@ class App extends React.Component<Props, {}> {
   }
 
   public submitFakeCode() {
-    Api.runCode([""]).then((res) => {
+    Api.runCode(this.editor.getValue()).then((res) => {
       console.log(res)
       this.setState({renderedHtml: res.data})
   })
