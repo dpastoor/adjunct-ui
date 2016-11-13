@@ -15,6 +15,7 @@ class App extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props)
     this.state = {
+      code: "# code here",
       renderedHtml: "code"
     }
   }
@@ -22,7 +23,10 @@ class App extends React.Component<Props, {}> {
   public submitFakeCode() {
     Api.runCode(this.editor.getValue()).then((res) => {
       console.log(res)
-      this.setState({renderedHtml: res.data})
+      this.setState({
+        code: this.editor.getValue(),
+        renderedHtml: res.data
+      })
   })
   }
   public editorDidMount(editor) {
@@ -58,7 +62,7 @@ class App extends React.Component<Props, {}> {
               height="500"
               width="600"
               language="r"
-              value={'# code here'}
+              value={this.state.code}
               options={options}
               onChange={this.onChange.bind(this)}
               editorDidMount={this.editorDidMount.bind(this)}
