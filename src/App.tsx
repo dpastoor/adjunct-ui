@@ -1,9 +1,11 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom'
 import './App.css';
 import {observer} from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { RaisedButton } from 'material-ui';
 import MonacoEditor from 'react-monaco-editor';
+import {Page, Row, Column, utils } from 'hedron';
 
 import {Api} from './api/api'
 interface Props {}
@@ -16,7 +18,8 @@ class App extends React.Component<Props, {}> {
     super(props)
     this.state = {
       code: "# code here",
-      renderedHtml: "code"
+      renderedHtml: "code",
+      editorWidth: 500
     }
   }
 
@@ -40,6 +43,9 @@ class App extends React.Component<Props, {}> {
     // console.log('onChange', newValue, e);
     console.log(this.editor.getValue())
   }
+  componentDidMount() {
+    this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth-100})
+  }
   render() {
     const options = {
       selectOnLineNumbers: true,
@@ -49,9 +55,12 @@ class App extends React.Component<Props, {}> {
       cursorStyle: 'line',
       automaticLayout: false,
     };
+    
     return (
       <MuiThemeProvider>
         <div className="App">
+      <Row debug>
+      <Column med={6} lg={6} ref="editorCol" >
         <RaisedButton 
           label="Submit Code"
           primary={true}
@@ -60,16 +69,21 @@ class App extends React.Component<Props, {}> {
         />
            <MonacoEditor
               height="500"
-              width="600"
+              width={this.state.editorWidth}
               language="r"
               value={this.state.code}
               options={options}
               onChange={this.onChange.bind(this)}
               editorDidMount={this.editorDidMount.bind(this)}
           />
+      </Column>
+      <Column med={6} lg={6} >
           <div
           dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
           />
+      
+      </Column>
+      </Row>
         </div>
       </MuiThemeProvider>
     );
