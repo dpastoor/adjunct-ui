@@ -3,7 +3,7 @@ export class Api {
     public static runCode(code: string[]): Axios.IPromise<Axios.AxiosXHR<{}>>  {
         console.log(code)
         console.log(JSON.stringify(code))
-           return axios.post('http://localhost:8080',
+           return axios.post('/api/v1/',
                {
                    session_name: "tmp123",
                    code: code
