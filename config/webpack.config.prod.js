@@ -228,7 +228,6 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'asset-manifest.json'
     }),
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
         new CopyWebpackPlugin([
       {
         from: 'node_modules/monaco-editor/min/vs',
