@@ -55,6 +55,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "@types/socket.io-client": "^1.4.28",
     "axios": "^0.15.2",
     "hedron": "^0.2.0",
     "material-ui": "^0.16.1",
@@ -63,7 +64,8 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-monaco-editor": "^0.6.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "socket.io-client": "^1.5.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
