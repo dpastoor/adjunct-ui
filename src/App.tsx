@@ -8,6 +8,7 @@ import MonacoEditor from 'react-monaco-editor';
 import {Page, Row, Column, utils } from 'hedron';
 
 import {Api} from './api/api'
+import {Chatbox} from './components/Chatbox' 
 interface Props {}
 
 
@@ -106,6 +107,7 @@ class App extends React.Component<Props, {}> {
       </Row>
       </Column>
       <Column fluid med={6} lg={6} >
+        <Chatbox />
         <div
         dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
         />
