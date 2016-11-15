@@ -1,13 +1,13 @@
 import {observable, action, computed} from 'mobx';
 import io from 'socket.io-client'
-
+import uuid from 'uuid'
 export default class ChatModel {
     @observable msgText
     public id:string
     public socket: SocketIOClient.Socket
     constructor(msgText = "") {
         this.msgText = msgText;
-        this.id = 'a' + new Date()
+        this.id = uuid.v4();
         this.socket = io('http://localhost:5000');
         let socket2 = io('http://localhost:5000/edits')
         this.socket.on('connection', msg => {
@@ -28,12 +28,23 @@ export default class ChatModel {
                 this.msgText = msgContents.text
             }
         })
+        socket2.on('update:knit', msg => {
+            console.log('knit:')
+            let msgContents = JSON.parse(msg)
+            console.log(msgContents)
+        })
     }
-    
+
     @action broadcastEditorUpdate(text) {
        this.socket.emit('edit', JSON.stringify({
            clientID: this.id,
            text: text
+       })
+    },
+    @action broadcastNewKnit(){
+       this.socket.emit('edit:knit', JSON.stringify({
+           clientID: this.id,
+           text: "reknit"
        })
     }
 
