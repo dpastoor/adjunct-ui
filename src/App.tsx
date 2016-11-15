@@ -8,8 +8,9 @@ import MonacoEditor from 'react-monaco-editor';
 import {Page, Row, Column, utils } from 'hedron';
 
 import {Api} from './api/api'
-import {Chatbox} from './components/Chatbox' 
+import {Chatbox} from './components/Chatbox'; 
 import ChatModel from './models/ChatModel';
+import Editor from './components/Editor';
 interface Props {}
 
 let chat = new ChatModel();
@@ -95,15 +96,11 @@ class App extends React.Component<Props, {}> {
         <Column med={10} lg={10} mdOffset={1} lgOffset={1}
         ref="editorCol"        
         >
-            <MonacoEditor
-                height={window.innerHeight-100}
-                width={this.state.editorWidth}
-                language="r"
-                value={this.state.code}
-                options={options}
-                onChange={this.onChange.bind(this)}
-                editorDidMount={this.editorDidMount.bind(this)}
-          />
+            <Editor
+            chat={chat}
+            editorWidth={this.state.editorWidth}
+            >
+            </Editor>
           </Column>
       </Row>
       </Column>
