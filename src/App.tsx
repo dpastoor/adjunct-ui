@@ -37,6 +37,16 @@ class App extends React.Component<Props, {}> {
   }
   componentDidMount() {
     this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth})
+    //this is obsenely hacky as it is just resubmitting the code and relying on caching
+    // making it fast to knit, rather than just asking for the html file that is should
+    // know exists now
+    chat.editSocket.on('update:knit', msg => {
+      Api.runCode(chat.msgText).then((res) => {
+        this.setState({
+          renderedHtml: res.data
+        })
+      })
+    })
   }
   render() {
     const options = {
