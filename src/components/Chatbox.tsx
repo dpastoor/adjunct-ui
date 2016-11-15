@@ -47,6 +47,11 @@ export class Chatbox extends React.Component<Props, {}> {
     return (
    <div>
    chat area
+   <button
+   onClick={
+       () => this.socket.emit('edit', "some edits")
+   }
+   ></button>
    </div> 
     );
   }
