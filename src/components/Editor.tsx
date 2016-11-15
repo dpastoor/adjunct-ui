@@ -25,14 +25,13 @@ class Editor extends React.Component<Props, {}> {
     this.editor = editor;
     this.model = editor.getModel();
     autorun(() => {
+      // want the editor position to be captured and maintained as any text is changing
         let position = editor.getPosition()
-        this.model.setValue(this.props.chat.msgText)
+        this.editor.setValue(this.props.chat.msgText)
         editor.setPosition(position)
     })
   }
   public onChange(newValue, e) {
-    // console.log('onChange', newValue, e);
-    console.log(this.editor.getValue())
     this.props.chat.broadcastEditorUpdate(this.editor.getValue())
   }
 
@@ -41,6 +40,7 @@ class Editor extends React.Component<Props, {}> {
   }
 
   render() {
+    console.log('re-render monaco editor')
     const options = {
       selectOnLineNumbers: true,
       roundedSelection: false,
@@ -56,7 +56,7 @@ class Editor extends React.Component<Props, {}> {
                 height={window.innerHeight-100}
                 width={this.state.editorWidth}
                 language="r"
-                value={this.props.chat.msgText}
+                value={"# add some code!"}
                 options={options}
                 onChange={this.onChange.bind(this)}
                 editorDidMount={this.editorDidMount.bind(this)}

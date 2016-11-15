@@ -2,7 +2,8 @@ import {observable, action, computed} from 'mobx';
 import io from 'socket.io-client'
 import uuid from 'uuid'
 export default class ChatModel {
-    @observable msgText
+    @observable msgText: string
+    @observable lastUpdateId: string
     public id:string
     public socket: SocketIOClient.Socket
     public editSocket: SocketIOClient.Socket
@@ -25,6 +26,7 @@ export default class ChatModel {
             let msgContents = JSON.parse(msg)
             if (msgContents.clientID !== this.id) {
                 this.msgText = msgContents.text
+                this.lastUpdateId = msgContents.clientID
             }
         })
         editSocket.on('update:knit', msg => {
