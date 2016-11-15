@@ -1,30 +1,13 @@
 
 import * as React from 'react';
-import {observer, observable} from 'mobx-react';
-import * as mobx from 'mobx';
+import {observer} from 'mobx-react';
+import {observable} from 'mobx';
 import io from 'socket.io-client'
 class ChatModel {
     @observable msgText
-    public socket
-    constructor(msgText = "") {
-        // this.msgText = msgText
-        // this.socket = io.connect('http://localhost:5000') 
-        // this.socket.on('connection', function() {
-        //     this.socket.send('hello')
-        // })
-    }
-}
-interface Props {}
-@observer
-export class Chatbox extends React.Component<Props, {}> {
+    public id
     public socket: SocketIOClient.Socket
-  constructor(props: Props) {
-    super(props)
-  }
-
-  componentDidMount() {
-      console.log('about to set up chat')
-       let chat = new ChatModel()
+    constructor(msgText = "") {
         this.socket = io('http://localhost:5000');
         this.socket.on('connection', msg => {
             console.log('established connection')
@@ -39,6 +22,20 @@ export class Chatbox extends React.Component<Props, {}> {
             console.log(msg)
         })
         this.socket.emit('chat', 'hello from client');
+    }
+}
+interface Props {}
+@observer
+export class Chatbox extends React.Component<Props, {}> {
+  public chat: ChatModel
+  constructor(props: Props) {
+    super(props)
+       this.chat = new ChatModel()
+  }
+
+  componentDidMount() {
+      console.log('about to set up chat')
+       
         console.log('setup chat and sent message');
 
        console.log('setup chat and sent message')
@@ -49,7 +46,7 @@ export class Chatbox extends React.Component<Props, {}> {
    chat area
    <button
    onClick={
-       () => this.socket.emit('edit', "some edits")
+       () => this.chat.socket.emit('edit', "some edits")
    }
    ></button>
    </div> 
