@@ -52,13 +52,6 @@ class Editor extends React.Component<Props, {}> {
     
     return (
         <div>  
-        <button
-          onClick={
-              () => this.model.setValue("\n #some code \n")
-          }
-        >
-        click to update code
-        </button>
             <MonacoEditor
                 height={window.innerHeight-100}
                 width={this.state.editorWidth}
