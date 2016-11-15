@@ -29,5 +29,12 @@ export default class ChatModel {
             }
         })
     }
+    
+    @action broadcastEditorUpdate(text) {
+       this.socket.emit('edit', JSON.stringify({
+           clientID: this.id,
+           text: text
+       })
+    }
 
 }
