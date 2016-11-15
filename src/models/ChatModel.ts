@@ -23,16 +23,13 @@ export default class ChatModel {
         editSocket.on('update', msg => {
             console.log('edit:')
             let msgContents = JSON.parse(msg)
-            console.log(msgContents)
             if (msgContents.clientID !== this.id) {
-                console.log("set new msg text: ", msgContents.text)
                 this.msgText = msgContents.text
             }
         })
         editSocket.on('update:knit', msg => {
             console.log('knit:')
             let msgContents = JSON.parse(msg)
-            console.log(msgContents)
         })
         this.editSocket = editSocket;
     }
