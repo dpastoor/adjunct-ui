@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {observer} from 'mobx-react';
+import {autorun} from 'mobx';
 import MonacoEditor from 'react-monaco-editor';
 import ChatModel from '../models/ChatModel';
 interface Props {
@@ -23,10 +24,16 @@ class Editor extends React.Component<Props, {}> {
     console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
     this.editor = editor;
     this.model = editor.getModel();
+    autorun(() => {
+        let position = editor.getPosition()
+        this.model.setValue(this.props.chat.msgText)
+        editor.setPosition(position)
+    })
   }
   public onChange(newValue, e) {
     // console.log('onChange', newValue, e);
     console.log(this.editor.getValue())
+    this.props.chat.broadcastEditorUpdate(this.editor.getValue())
   }
 
   public setEditorValue(val) {
@@ -56,7 +63,7 @@ class Editor extends React.Component<Props, {}> {
                 height={window.innerHeight-100}
                 width={this.state.editorWidth}
                 language="r"
-                value={this.state.code}
+                value={this.props.chat.msgText}
                 options={options}
                 onChange={this.onChange.bind(this)}
                 editorDidMount={this.editorDidMount.bind(this)}
