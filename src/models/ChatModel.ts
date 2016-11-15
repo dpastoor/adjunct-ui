@@ -5,11 +5,12 @@ export default class ChatModel {
     @observable msgText
     public id:string
     public socket: SocketIOClient.Socket
+    public editSocket: SocketIOClient.Socket
     constructor(msgText = "") {
         this.msgText = msgText;
         this.id = uuid.v4();
         this.socket = io('http://localhost:5000');
-        let socket2 = io('http://localhost:5000/edits')
+        let editSocket = io('http://localhost:5000/edits')
         this.socket.on('connection', msg => {
             console.log('established connection')
             console.log(msg)
@@ -18,8 +19,8 @@ export default class ChatModel {
             console.log('established chat')
             console.log(msg)
         })
-        socket2.on('chat', msg => console.log("chat2", msg))
-        socket2.on('update', msg => {
+        editSocket.on('chat', msg => console.log("chat2", msg))
+        editSocket.on('update', msg => {
             console.log('edit:')
             let msgContents = JSON.parse(msg)
             console.log(msgContents)
@@ -28,11 +29,12 @@ export default class ChatModel {
                 this.msgText = msgContents.text
             }
         })
-        socket2.on('update:knit', msg => {
+        editSocket.on('update:knit', msg => {
             console.log('knit:')
             let msgContents = JSON.parse(msg)
             console.log(msgContents)
         })
+        this.editSocket = editSocket;
     }
 
     @action broadcastEditorUpdate(text) {
@@ -40,7 +42,7 @@ export default class ChatModel {
            clientID: this.id,
            text: text
        })
-    },
+    }
     @action broadcastNewKnit(){
        this.socket.emit('edit:knit', JSON.stringify({
            clientID: this.id,
