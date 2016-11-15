@@ -9,9 +9,10 @@ import {Page, Row, Column, utils } from 'hedron';
 
 import {Api} from './api/api'
 import {Chatbox} from './components/Chatbox' 
+import ChatModel from './models/ChatModel';
 interface Props {}
 
-
+let chat = new ChatModel();
 @observer
 class App extends React.Component<Props, {}> {
   public editor
@@ -107,7 +108,7 @@ class App extends React.Component<Props, {}> {
       </Row>
       </Column>
       <Column fluid med={6} lg={6} >
-        <Chatbox />
+        <Chatbox chat={chat} />
         <div
         dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
         />

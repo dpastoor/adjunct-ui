@@ -4,9 +4,10 @@ import {observer} from 'mobx-react';
 import {observable, action, computed} from 'mobx';
 import ChatModel from '../models/ChatModel';
 
-let chat = new ChatModel()
 
-interface Props {}
+interface Props {
+    chat: ChatModel
+}
 
 @observer
 export class Chatbox extends React.Component<Props, {}> {
@@ -15,6 +16,7 @@ export class Chatbox extends React.Component<Props, {}> {
   }
 
   render() {
+      let chat = this.props.chat
     return (
    <div>
    chat area
