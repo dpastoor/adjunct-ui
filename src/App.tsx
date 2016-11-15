@@ -27,24 +27,13 @@ class App extends React.Component<Props, {}> {
   }
 
   public submitCode() {
-    Api.runCode(this.editor.getValue()).then((res) => {
+    Api.runCode(chat.msgText).then((res) => {
       console.log(res)
+      chat.broadcastNewKnit()
       this.setState({
-        code: this.editor.getValue(),
         renderedHtml: res.data
       })
   })
-  }
-  public editorDidMount(editor) {
-    console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
-    this.editor = editor;
-    // editor.onDidChangeCursorSelection(function(e) {
-    //   console.log('selection: ', JSON.stringify(e.selection))
-    // })
-  }
-  public onChange(newValue, e) {
-    // console.log('onChange', newValue, e);
-    console.log(this.editor.getValue())
   }
   componentDidMount() {
     this.setState({editorWidth: ReactDOM.findDOMNode(this.refs.editorCol).offsetWidth})
@@ -105,7 +94,6 @@ class App extends React.Component<Props, {}> {
       </Row>
       </Column>
       <Column fluid med={6} lg={6} >
-        <Chatbox chat={chat} />
         <div
         dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
         />
