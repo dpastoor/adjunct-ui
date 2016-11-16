@@ -10,8 +10,8 @@ export default class ChatModel {
     constructor(msgText = "") {
         this.msgText = msgText;
         this.id = uuid.v4();
-        this.socket = io('http://localhost:5000');
-        let editSocket = io('http://localhost:5000/edits')
+        this.socket = io('/socket.io');
+        let editSocket = io('/socket.io/edits')
         this.socket.on('connection', msg => {
             console.log('established connection')
             console.log(msg)
