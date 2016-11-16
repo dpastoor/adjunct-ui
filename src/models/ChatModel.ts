@@ -4,12 +4,14 @@ import uuid from 'uuid'
 export default class ChatModel {
     @observable msgText: string
     @observable lastUpdateId: string
+    public editTime: Date
     public id:string
     public socket: SocketIOClient.Socket
     public editSocket: SocketIOClient.Socket
     constructor(msgText = "") {
         this.msgText = msgText;
         this.id = uuid.v4();
+        this.editTime = new Date();
         this.socket = io('/socket.io');
         let editSocket = io('/socket.io/edits')
         this.socket.on('connection', msg => {
@@ -22,11 +24,16 @@ export default class ChatModel {
         })
         editSocket.on('chat', msg => console.log("chat2", msg))
         editSocket.on('update', msg => {
-            console.log('edit:')
+            console.log('update')
             let msgContents = JSON.parse(msg)
+            console.log(msgContents)
             if (msgContents.clientID !== this.id) {
-                this.msgText = msgContents.text
-                this.lastUpdateId = msgContents.clientID
+                let msgEditTime = new Date(msgContents.editTime);
+                if (msgEditTime > this.editTime) {
+                    console.log("newer updates available")
+                    this.msgText = msgContents.text
+                    this.lastUpdateId = msgContents.clientID
+                }
             }
         })
         editSocket.on('update:knit', msg => {
@@ -39,8 +46,10 @@ export default class ChatModel {
     @action broadcastEditorUpdate(text) {
        this.socket.emit('edit', JSON.stringify({
            clientID: this.id,
-           text: text
+           text: text,
+           editTime: this.editTime
        })
+       )
     }
     @action broadcastNewKnit(){
        this.socket.emit('edit:knit', JSON.stringify({
