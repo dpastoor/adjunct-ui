@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "@types/axios": "^0.9.33",
+    "@types/lodash": "^4.14.39",
     "@types/material-ui": "^0.16.38",
     "@types/react": "^0.14.47",
     "@types/react-dom": "^0.14.18",
@@ -59,6 +60,7 @@
     "@types/socket.io-client": "^1.4.28",
     "axios": "^0.15.2",
     "hedron": "^0.2.0",
+    "lodash": "^4.17.1",
     "material-ui": "^0.16.1",
     "mobx": "^2.6.2",
     "mobx-react": "^3.5.9",
