@@ -9,11 +9,14 @@ import {Page, Row, Column, utils } from 'hedron';
 
 import {Api} from './api/api'
 import {Chatbox} from './components/Chatbox'; 
+import {Viewer} from './components/Viewer'; 
 import ChatModel from './models/ChatModel';
+import ViewModel from './models/ViewModel';
 import Editor from './components/Editor';
 interface Props {}
 
 let chat = new ChatModel();
+let view = new ViewModel();
 @observer
 class App extends React.Component<Props, {}> {
   public editor
@@ -21,18 +24,18 @@ class App extends React.Component<Props, {}> {
     super(props)
     this.state = {
       code: "# code here",
-      renderedHtml: "code",
       editorWidth: 500
     }
   }
 
   public submitCode() {
+    console.log('about to submit code with value')
+    console.log(chat.msgText)
     Api.runCode(chat.msgText).then((res) => {
+      console.log('post response')
       console.log(res)
       chat.broadcastNewKnit()
-      this.setState({
-        renderedHtml: res.data
-      })
+      view.setHtml(res.data)
   })
   }
   componentDidMount() {
@@ -42,9 +45,7 @@ class App extends React.Component<Props, {}> {
     // know exists now
     chat.editSocket.on('update:knit', msg => {
       Api.runCode(chat.msgText).then((res) => {
-        this.setState({
-          renderedHtml: res.data
-        })
+        view.setHtml(res.data)
       })
     })
   }
@@ -104,9 +105,7 @@ class App extends React.Component<Props, {}> {
       </Row>
       </Column>
       <Column fluid med={6} lg={6} >
-        <div
-        dangerouslySetInnerHTML={{__html: this.state.renderedHtml}}
-        />
+        <Viewer ViewModel={view} />
       </Column>
       </Row>
         </div>
