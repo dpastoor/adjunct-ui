@@ -1,0 +1,5 @@
+tunnels:
+  adjunct:
+    proto: http
+    addr: 3000
+    http_proxy: http://localhost:3000
